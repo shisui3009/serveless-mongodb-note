@@ -1,0 +1,37 @@
+
+service: example-mongodb # NOTE: update this with your service name
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  memorySize: 128
+  timeout: 10
+  stage: dev
+  region: us-east-1
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: /
+          method: get
+          cors: true
+
+  createNote:
+    handler: handler.createNote
+    events:
+      - http:
+          path: /note
+          method: post
+          cors: true
+
+  getNotes:
+    handler: handler.getNotes
+    events:
+      - http:
+          path: /notes
+          method: get
+          cors: true
+plugins:
+- serverless-offline
